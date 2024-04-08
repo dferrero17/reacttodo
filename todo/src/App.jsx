@@ -1,14 +1,14 @@
-import { useState, useEffect} from 'react'
-
+import { useState, useEffect } from 'react'
 import './App.css'
-
+import TodoList from './components/TodoList'
+import TodoControls from './components/TodoControls'
 function App() {
   const [todos, setTodos] = useState({})
 
   const initialTodo = 'Learn React'
   const [inputValue, setInputValue] = useState(initialTodo);
   const [nextUp, setNextUp] = useState(initialTodo);
-  
+
   const addTodo = () => {
     setTodos({
       ...todos,
@@ -29,24 +29,19 @@ function App() {
   useEffect(() => {
     setNextUp(inputValue)
   }
-  , [inputValue])
+    , [inputValue])
 
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100vw'}}>
-      <h1>Next Up: {nextUp}</h1>
-      <ul>
-        {Object.keys(todos).map((key) => (
-          <li key={key}>
-            <button onClick={removeTodo(key)}>X</button>
-            {todos[key]}
-          </li>
-        ))}
-      </ul>
-
-      <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)} />
-      <button onClick={addTodo}>Add</button>
-      <button onClick={clearTodos}>Reset</button>
+    <div className='flex flex-col justify-center items-center h-screen gap-4'>
+      <h1 className='text-3xl font-bold animate-pulse'> Next Up: {nextUp}</h1>
+      <TodoList todos={todos} removeTodo={removeTodo} />
+      <TodoControls
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        addTodo={addTodo}
+        clearTodos={clearTodos}
+      />
     </div>
   )
 }

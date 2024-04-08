@@ -1,4 +1,7 @@
-export default function TodoControls({ inputValue, setInputValue, addTodo, clearTodos }) {
+import { TodosContext } from "../contexts/TodoContext"
+import { useContext } from 'react';
+export default function TodoControls() {
+    const { inputValue, setInputValue, addTodo, clearTodos } = useContext(TodosContext);
     return (
         <div className="flex flex-col gap-4">
             <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)} />
